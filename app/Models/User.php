@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Customer;
+use App\Models\Seller;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -40,4 +42,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $with = ['profile'];
+ 
+    public function profile()
+    {
+        return $this->morphTo();
+    }
+
+
+    public function getIsCustomerAttribute()
+    {
+        return $this->profile_type == Customer::class;
+    }
+    public function getIsSellerAttribute()
+    {
+        return $this->profile_type == Seller::class;
+    }
 }
