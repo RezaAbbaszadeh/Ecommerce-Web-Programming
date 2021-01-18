@@ -18,3 +18,14 @@ nav{
     font-size: xx-large;
     color: var(--color-logo);
 }
+
+.btn{
+    background-color: var(--color-logo);
+    color: white;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+.btn-link{
+    background-color: transparent;
+    color: black;
+}

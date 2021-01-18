@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 
 <body>
@@ -30,7 +30,19 @@
                 </div>
             </div>
             <div class="float-right my-auto" style="white-space: nowrap;">
-                <a style="margin-right: 1.5rem;" href="login">Login / Sign up</a>
+                @guest  
+                    <a href="{{ route('login') }}">Login</a>
+                    <span>/ </span>
+                    <a style="margin-right: 1.5rem;" href="{{ route('register') }}">Register</a>
+                @endguest
+                @auth
+                    <form action="{{ route('logout') }}" method="POST">
+
+                        <a href="#">{{ auth()->user()->name }}</a>
+                        @csrf
+                        <button class="btn btn-link" type="submit" style="margin-right: 1.5rem;" >Logout</button>
+                    </form>
+                @endauth
             </div>
         </div>
         <nav class="navbar navbar-expand-md navbar-light pl-0 pt-2">
