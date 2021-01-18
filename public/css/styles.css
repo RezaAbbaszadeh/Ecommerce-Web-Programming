@@ -1,0 +1,20 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+
+:root{
+    --color-logo: #fa3348;
+}
+
+header{
+
+    box-shadow: 0 7px 8px 0 rgba(0,0,0,.04);
+}
+
+nav{
+    background-color: transparent !important;
+}
+
+#logo{
+    font-family: "Lobster", sans-serif;
+    font-size: xx-large;
+    color: var(--color-logo);
+}
