@@ -31,6 +31,9 @@ class LoginController extends Controller
 
         }
 
-        return redirect()->route('home');
+        if(auth()->user()->isCustomer)
+            return redirect()->route('home');
+        else
+            return redirect()->route('home.sellers');
     }
 }

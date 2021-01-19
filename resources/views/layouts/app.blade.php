@@ -17,36 +17,22 @@
 <body>
 
     <header class="container-fluid bg-white">
-        <div class="mt-2 d-flex justify-content-between">
-            <div class="row" style="width: 100%;">
-                <div class="ml-3" style="width:100px;">
-                    <a id="logo" class="my-2">meShop</a>
-                </div>
-                <div class="col-8 col-sm-7 col-lg-5 col-xl-4 m-2 input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-light" id="basic-addon2"><i class="fa fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control bg-light" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
+        <div class="row mt-2 wrapper justify-content-between">
+            <div class="col-3 col-md-3 col-lg-2">
+                <a id="logo" class="my-2" href="{{ route('home') }}">meShop</a>
             </div>
-            <div class="float-right my-auto" style="white-space: nowrap;">
-                @guest  
-                    <a href="{{ route('login') }}">Login</a>
-                    <span>/ </span>
-                    <a style="margin-right: 1.5rem;" href="{{ route('register') }}">Register</a>
-                @endguest
-                @auth
-                    <form action="{{ route('logout') }}" method="POST">
-
-                        <a href="#">{{ auth()->user()->name }}</a>
-                        @csrf
-                        <button class="btn btn-link" type="submit" style="margin-right: 1.5rem;" >Logout</button>
-                    </form>
-                @endauth
+            <div class="col-9 col-md-6 col-lg-4  input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-light" id="basic-addon2"><i class="fa fa-search"></i></span>
+                </div>
+                <input type="text" class="form-control bg-light h-100" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="col-3 col-md-3 col-lg-2" style="white-space: nowrap;">
+                
             </div>
         </div>
         <nav class="navbar navbar-expand-md navbar-light pl-0 pt-2">
-            <a class="navbar-brand" href="#" style="width:100px;">Category</a>
+            {{-- <a class="navbar-brand" href="#" style="width:100px;">Category</a> --}}
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -75,8 +61,25 @@
                     @endforeach
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item"><a class="nav-link" href="#"></span>About us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"></span>Q&A</a></li>
+                    @guest
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}"></span>Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}"></span>Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register.seller') }}"></span>Become a seller</a></li>
+
+                @endguest
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
+                    
+                </li>
+                <li class="nav-item">
+                <form action="{{ route('logout') }}" method="POST">
+
+                    @csrf
+                    <button class="btn-link nav-link border-0" type="submit" style="margin-right: 1.5rem;" >Logout</button>
+                </form>
+                </li>
+                @endauth
                 </ul>
             </div>
         </nav>

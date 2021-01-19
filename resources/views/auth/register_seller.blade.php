@@ -4,7 +4,7 @@
 
 <div class="form-container col-4 mx-auto border rounded-lg p-4" style="margin-top: 100px">
     <h2 class=".font-weight-bolder">Create Account</h2>
-    <form method="post" action="{{ route('register') }}">  
+    <form method="post" action="{{ route('register.seller') }}">  
         @csrf
         <div class="form-group">
             <label for="name">Name:</label>
