@@ -18,16 +18,16 @@
 
     <header class="container-fluid bg-white">
         <div class="row mt-2 wrapper justify-content-between">
-            <div class="col-3 col-md-3 col-lg-2">
-                <a id="logo" class="my-2" href="{{ route('home') }}">meShop</a>
+            <div class="col-3 col-md-3 col-xl-2">
+                <a id="logo" class="my-2 h2 pl-2" href="{{ route('home') }}">meShop</a>
             </div>
-            <div class="col-9 col-md-6 col-lg-4  input-group">
+            <div class="col-9 col-md-6 col-xl-4 input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text bg-light" id="basic-addon2"><i class="fa fa-search"></i></span>
                 </div>
                 <input type="text" class="form-control bg-light h-100" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
             </div>
-            <div class="col-3 col-md-3 col-lg-2" style="white-space: nowrap;">
+            <div class="col-3 col-md-3 col-xl-2" style="white-space: nowrap;">
                 
             </div>
         </div>
@@ -46,16 +46,16 @@
                             {{ $category->name }}
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ $category->slug }}">All</a>
+                            <a class="dropdown-item" href="{{ route('category', $category) }}">All</a>
                             @foreach($category->subcategory as $subcategory)
-                            <a class="dropdown-item" href="{{ $subcategory->slug }}">{{ $subcategory->name }}</a>
+                            <a class="dropdown-item" href="{{ route('category', $subcategory) }}">{{ $subcategory->name }}</a>
                             @endforeach
                         </div>
                     </li>
 
                     @else
                     <li class="nav-item">
-                        <a href="{{ $category->slug }}" class="nav-link">{{ $category->name }}</a>
+                        <a href="{{ route('category', $category) }}" class="nav-link">{{ $category->name }}</a>
                     </li>
                     @endif
                     @endforeach

@@ -7,11 +7,8 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Category $category)
     {
-
-        $cats = Category::get();
-        dd($cats);
-        return view('categoryController');
+        return view('category.index');
     }
 }

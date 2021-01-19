@@ -43,13 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     protected $with = ['profile'];
  
     public function profile()
     {
         return $this->morphTo();
     }
-
 
     public function getIsCustomerAttribute()
     {

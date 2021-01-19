@@ -1,31 +1,50 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 
-:root{
+:root {
     --color-logo: #fa3348;
 }
 
-header{
+header {
 
-    box-shadow: 0 7px 8px 0 rgba(0,0,0,.04);
+    box-shadow: 0 7px 8px 0 rgba(0, 0, 0, .04);
 }
 
-nav{
+nav {
     background-color: transparent !important;
 }
 
-#logo{
+#logo {
     font-family: "Lobster", sans-serif;
-    font-size: xx-large;
     color: var(--color-logo);
+    cursor: pointer;
+}
+#logo:hover{
+    text-decoration: none;
 }
 
-.btn{
+.btn {
     background-color: var(--color-logo);
     color: white;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
 }
-.btn-link{
+
+.btn-link {
     background-color: transparent;
     color: black;
 }
+
+.no-focus:focus {
+    border: none;
+    box-shadow: none;
+    outline: 0 none;
+}
+/* 
+.image{
+    position:relative;
+    overflow:hidden;
+    padding-bottom:100%;
+}
+.image img{
+    position:absolute;
+} */
