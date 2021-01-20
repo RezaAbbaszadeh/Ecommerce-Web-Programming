@@ -46,4 +46,5 @@ Route::post('/sellers/add', [AddProductController::class, 'store']);
 Route::get('/product/{product:id}/{name}', [ProductDetailsController::class, 'index'])->name('product');
 Route::post('/product/add_cart', [ProductDetailsController::class, 'store'])->name('product.store')->middleware('customer');;
 
-Route::get('/user/cart', [CartController::class, 'index'])->name('cart.index')->middleware('customer');
+Route::get('/user/cart', [CartController::class, 'index'])->name('cart')->middleware('customer');
+Route::post('/user/cart', [CartController::class, 'store'])->middleware('customer');

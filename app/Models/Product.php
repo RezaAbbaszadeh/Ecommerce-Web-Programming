@@ -42,9 +42,4 @@ class Product extends Model
     {
         return $this->product_seller->min('price');
     }
-
-    public function orderProductSeller(){        
-        return $this->belongsTo(OrderProductSeller::class);
-
-    }
 }
