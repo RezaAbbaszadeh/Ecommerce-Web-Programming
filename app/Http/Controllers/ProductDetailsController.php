@@ -29,13 +29,16 @@ class ProductDetailsController extends Controller
             'count' => 'required|integer|min:1',
         ]);
 
-        $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done'=> false])->get()[0];
+        $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done'=> false])->get();
         // dd($openOrder);
-        if(!$openOrder){
+        if(!$openOrder->count()){
             $openOrder = Order::create([
                 'customer_id'=>auth()->user()->profile->id,
             ]);
             //$openOrder->save();
+        }
+        else{
+            $openOrder = $openOrder[0];
         }
 
         $ops = OrderProductSeller::create([

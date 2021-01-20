@@ -55,5 +55,7 @@ class CartController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
         }
+
+        return redirect()->route('orders');
     }
 }
