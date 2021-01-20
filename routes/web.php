@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ProductDetailsController;
 use App\Http\Controllers\SellerHomeController;
 
 /*
@@ -40,3 +41,5 @@ Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
 Route::get('/sellers/add', [AddProductController::class, 'index'])->name('seller.add');
 Route::post('/sellers/add', [AddProductController::class, 'store']);
+
+Route::get('/product/{product:id}/{name}', [ProductDetailsController::class, 'index'])->name('product');

@@ -14,7 +14,7 @@
 <div class="row col-10 col-md-10 col-lg-9 mx-auto p-0 mt-3">
     <h2 class="col-12 mb-3">Products in category of {{ $category->name }}</h2>
     @foreach ($products as $product)
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-3 border">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-0">
         <x-product :product="$product" :price="$product->minPrice()"/>
     </div>
 

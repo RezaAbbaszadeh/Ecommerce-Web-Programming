@@ -17,9 +17,9 @@
 <body>
 
     <header class="container-fluid bg-white">
-        <div class="row mt-2 wrapper justify-content-between">
+        <div class="row mt-0 pt-3 wrapper justify-content-between">
             <div class="col-3 col-md-3 col-xl-2">
-                <a id="logo" class="my-2 h2 pl-2" href="{{ route('home') }}">meShop</a>
+                <a id="logo" class="mt-0 h2 pl-2" href="{{ route('home') }}">meShop</a>
             </div>
             <div class="col-9 col-md-6 col-xl-4 input-group">
                 <div class="input-group-prepend">
