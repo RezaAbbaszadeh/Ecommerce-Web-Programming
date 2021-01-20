@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderProductSeller;
 use App\Models\Product;
 use App\Models\ProductSeller;
 use Illuminate\Http\Request;
@@ -18,5 +20,30 @@ class ProductDetailsController extends Controller
             'product'=>$product,
             'ps'=> $p
         ]);
+    }
+
+
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'count' => 'required|integer|min:1',
+        ]);
+
+        $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done'=> false])->get()[0];
+        // dd($openOrder);
+        if(!$openOrder){
+            $openOrder = Order::create([
+                'customer_id'=>auth()->user()->profile->id,
+            ]);
+            //$openOrder->save();
+        }
+
+        $ops = OrderProductSeller::create([
+            'order_id'=>$openOrder->id,
+            'product_seller_id'=>$request->input('product_seller_id'),
+            'count'=>$request->input('count')
+        ]);
+
+        return redirect()->route('cart.index');
     }
 }

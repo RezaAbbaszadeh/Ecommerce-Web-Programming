@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -43,3 +44,6 @@ Route::get('/sellers/add', [AddProductController::class, 'index'])->name('seller
 Route::post('/sellers/add', [AddProductController::class, 'store']);
 
 Route::get('/product/{product:id}/{name}', [ProductDetailsController::class, 'index'])->name('product');
+Route::post('/product/add_cart', [ProductDetailsController::class, 'store'])->name('product.store')->middleware('customer');;
+
+Route::get('/user/cart', [CartController::class, 'index'])->name('cart.index')->middleware('customer');

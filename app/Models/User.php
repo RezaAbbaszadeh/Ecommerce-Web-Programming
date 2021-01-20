@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Customer;
 use App\Models\Seller;
+use App\Models\Customer;
+use App\Models\OrderProductSeller;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -45,7 +46,7 @@ class User extends Authenticatable
 
 
     protected $with = ['profile'];
- 
+
     public function profile()
     {
         return $this->morphTo();
@@ -58,5 +59,10 @@ class User extends Authenticatable
     public function getIsSellerAttribute()
     {
         return $this->profile_type == Seller::class;
+    }
+
+    public function orderproductSeller()
+    {
+        return $this->hasMany(OrderProductSeller::class);
     }
 }

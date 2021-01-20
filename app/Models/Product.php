@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Seller;
 use App\Models\ProductSeller;
+use App\Models\OrderProductSeller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -40,5 +41,10 @@ class Product extends Model
     public function minPrice()
     {
         return $this->product_seller->min('price');
+    }
+
+    public function orderProductSeller(){        
+        return $this->belongsTo(OrderProductSeller::class);
+
     }
 }
