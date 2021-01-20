@@ -31,4 +31,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function product_seller()
+    {
+        return $this->hasMany(ProductSeller::class);
+    }
+
+    public function minPrice()
+    {
+        return $this->product_seller->min('price');
+    }
 }
