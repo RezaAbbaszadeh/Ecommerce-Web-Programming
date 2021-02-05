@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductDetailsController;
+use App\Http\Controllers\SearchProductController;
 use App\Http\Controllers\SellerHomeController;
 
 /*
@@ -51,3 +52,5 @@ Route::get('/user/cart', [CartController::class, 'index'])->name('cart')->middle
 Route::post('/user/cart', [CartController::class, 'store'])->middleware('customer');
 
 Route::get('/user/orders', [OrdersController::class, 'index'])->name('orders')->middleware('customer');
+
+Route::post('/products/search', [SearchProductController::class, 'search'])->name('products.search')->middleware('seller');

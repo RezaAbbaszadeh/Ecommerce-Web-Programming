@@ -70,3 +70,7 @@ a{
     border: 1px solid #ccc;
     content: "";
 }
+
+.cursor-pointer{
+    cursor: pointer;
+}
