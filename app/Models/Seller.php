@@ -10,6 +10,9 @@ class Seller extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'owner_name'
+    ];
     protected $guarded = [];
   
     public function user() 

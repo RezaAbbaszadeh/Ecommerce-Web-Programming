@@ -69,14 +69,13 @@
                 @endguest
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
-                    
+                    <a class="nav-link" href="{{ route('profile.edit') }}">{{ auth()->user()->name }}</a>
                 </li>
                 <li class="nav-item">
                 <form action="{{ route('logout') }}" method="POST">
 
                     @csrf
-                    <button class="btn-link nav-link border-0" type="submit" style="margin-right: 1.5rem;" >Logout</button>
+                    <button class="btn-link nav-link border-0 text-danger" type="submit" style="margin-right: 1.5rem;" >Logout</button>
                 </form>
                 </li>
                 @endauth
