@@ -57,4 +57,5 @@ Route::post('/user/cart', [CartController::class, 'store'])->middleware('custome
 
 Route::get('/user/orders', [OrdersController::class, 'index'])->name('orders')->middleware('customer');
 
-Route::post('/products/search', [SearchProductController::class, 'search'])->name('products.search')->middleware('seller');
+Route::post('/products/search', [SearchProductController::class, 'searchProduct'])->name('products.search')->middleware('seller');
+Route::post('/search', [SearchProductController::class, 'search'])->name('search');

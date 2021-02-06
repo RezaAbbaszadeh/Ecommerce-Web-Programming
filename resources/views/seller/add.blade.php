@@ -11,7 +11,7 @@
 
     <div class="input-group mt-1 p-1 bg-light border rounded">
         <span class="input-group-text border-0 bg-light" id="basic-addon2"><i class="fa fa-search"></i></span>
-        <input id="search" type="text" class="form-control border-0 bg-light h-100 no-focus"
+        <input id="search-product" type="text" class="form-control border-0 bg-light h-100 no-focus"
             placeholder="Search for existing products" aria-label="Username" aria-describedby="basic-addon1">
         <span class="input-group-text border-0 text-secondary cursor-pointer bg-light" id="basic-addon2"
             onclick="clearSearch()">
@@ -19,13 +19,14 @@
         </span>
     </div>
 
-    <div id="search-res-container" class="shadow pl-5 col-11 bg-white rounded position-absolute" style="z-index:1000;">
+    <div id="search-product-res-container" class="shadow pl-5 col-11 bg-white rounded position-absolute"
+        style="z-index:1000;">
         <div class="d-flex justify-content-center mr-5">
-            <div id="search-spinner" class="spinner-border m-2 d-none text-danger" role="status">
+            <div id="search-product-spinner" class="spinner-border m-2 d-none text-danger" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
-        <div id="search-res" class="w-100 row" style="max-height: 280px; overflow-y: scroll;">
+        <div id="search-product-res" class="w-100 row" style="max-height: 280px; overflow-y: scroll;">
 
         </div>
     </div>
@@ -129,10 +130,10 @@
 
 <script>
     $(document).ready(function () {
-        var s = document.getElementById("search");
+        var s = document.getElementById("search-product");
         s.addEventListener("change", function () {
-            var searchDiv = document.getElementById("search-res");
-            var spinner = document.getElementById("search-spinner");
+            var searchDiv = document.getElementById("search-product-res");
+            var spinner = document.getElementById("search-product-spinner");
             spinner.classList.remove("d-none");
             searchDiv.innerHTML = "";
             jQuery.ajax({
@@ -140,7 +141,7 @@
                 method: 'post',
                 data: {
                     "_token": "{{ csrf_token() }}",
-                    "name": $('#search').val()
+                    "name": $('#search-product').val()
                 },
                 success: function (result) {
                     setTimeout(function () {
@@ -156,7 +157,7 @@
                             if (p.cat3 !== undefined)
                                 cat3 = p.cat3.id;
                             searchDiv.innerHTML += `
-                            <div class='p-2 row w-100 cursor-pointer border-bottom'
+                            <div class='p-2 list_row row w-100 cursor-pointer border-bottom'
                              onclick="selectItem('`+ p.name + "'," + p.id + "," + cat1 + "," + cat2 + "," + cat3 + ",`" + p.details + "`" + `)">
                                 <div class='col-2' >
                                     <img class='p w-100 h-auto' src='` + p.img_url + `' />
@@ -209,10 +210,10 @@
     }
 
     function clearSearch() {
-        var searchDiv = document.getElementById("search-res");
+        var searchDiv = document.getElementById("search-product-res");
         searchDiv.innerHTML = "";
 
-        var nameInput = document.getElementById("search");
+        var nameInput = document.getElementById("search-product");
         nameInput.value = "";
     }
 </script>

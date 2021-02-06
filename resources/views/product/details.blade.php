@@ -16,10 +16,10 @@
 
 
     <div class="bg-white border row">
-        <div class="col-6 col-md-4 border-right">
-            <img class=" w-100 h-auto" src="{{ $product->img_url }}" />
+        <div class="col-12 col-md-4 border-right">
+            <img class="p-4 w-100 h-auto" src="{{ $product->img_url }}" />
         </div>
-        <div class="col-6 col-md-4 p-4">
+        <div class="col-12 col-sm-6 col-md-4 p-4">
             <h2>{{ $product->name }}</h2>
             <p class="mt-5">pick a color:
                 <span class="color d-inline-block ml-3" style="background-color: #ffeb3b;"></span>
@@ -39,7 +39,7 @@
             </select>
 
         </div>
-        <div class="col-12 col-md-4 mb-4">
+        <div class="col-12 col-sm-6 col-md-4 mb-4">
             <h1 id="d-price" class="text-danger mt-4 mx-auto text-center"></h1>
             <script>
                 $('#d-price').text('$' + {{ $ps[0]-> price }}); 

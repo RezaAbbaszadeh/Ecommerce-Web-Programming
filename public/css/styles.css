@@ -1,16 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
-
 :root {
     --color-logo: #fa3348;
 }
-body{
+
+body {
     margin: 0 !important;
     padding: 0 !important;
     background-color: whitesmoke;
 }
 
 header {
-
     box-shadow: 0 7px 8px 0 rgba(0, 0, 0, .04);
 }
 
@@ -23,7 +22,8 @@ nav {
     color: var(--color-logo);
     cursor: pointer;
 }
-#logo:hover{
+
+#logo:hover {
     text-decoration: none;
 }
 
@@ -45,25 +45,25 @@ nav {
     outline: 0 none;
 }
 
-.product-box{
+.product-box {
     background-color: white;
-    transition: box-shadow 0.3s ease-in-out 
+    transition: box-shadow 0.3s ease-in-out
 }
 
-.product-box:hover{
+.product-box:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
-    transition: box-shadow 0.3s ease-in-out 
+    transition: box-shadow 0.3s ease-in-out
 }
 
-.bg-white{
+.bg-white {
     background-color: white;
 }
 
-a{
+a {
     cursor: pointer;
 }
 
-.color{
+.color {
     width: 17px;
     height: 17px;
     border-radius: 8px;
@@ -71,10 +71,14 @@ a{
     content: "";
 }
 
-.cursor-pointer{
+.cursor-pointer {
     cursor: pointer;
 }
 
 .multiline {
     white-space: pre-line;
-  }
+}
+
+.list_row:hover {
+    background-color: #eeeeee;
+}

@@ -10,7 +10,7 @@ use SplFileInfo;
 
 class SearchProductController extends Controller
 {
-    public function search(Request $request)
+    public function searchProduct(Request $request)
     {
         if (empty($request->input('name'))) {
             return "";
@@ -45,5 +45,26 @@ class SearchProductController extends Controller
             }
         }
         return $result->toJson();
+    }
+
+    public function search(Request $request)
+    {
+        if (empty($request->input('name'))) {
+            return "";
+        }
+        $search = explode(" ", $request->input('name'));
+
+        $products = Product::where('name', 'ILIKE', '%' . $search[0] . '%')->get();
+        $cats = Category::where('name', 'ILIKE', '%' . $search[0] . '%')->get();
+
+        for ($i = 1; $i < count($search); $i++) {
+            $p = Product::where('name', 'ILIKE', '%' . $search[$i] . '%')->get();
+            $c = Category::where('name', 'ILIKE', '%' . $search[$i] . '%')->get();
+            $products = $products->merge($p);
+            $cats = $cats->merge($c);
+        }
+
+        $result=(object)['cats'=>$cats, 'products'=>$products];
+        return response()->json(['cats'=>$cats, 'products'=>$products, 'base_url'=>route('home')]);
     }
 }

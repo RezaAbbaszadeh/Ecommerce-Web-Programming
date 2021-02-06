@@ -13,7 +13,7 @@
 
 
 @foreach($cats as $cat)
-<h1>{{ $cat->name }}</h1>
+<a class="h2 text-secondary" href="{{ route('category', $cat) }}">{{ $cat->name }}</a>
 <div class="row">
     @foreach($cat->products as $product)
     <div class="col-2">
