@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\ProductSeller;
 use App\Models\OrderProductSeller;
 use Illuminate\Support\Facades\DB;
+use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Response;
 
 class CartController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
 
         $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done' => false])
@@ -19,15 +21,20 @@ class CartController extends Controller
                 'order_product_sellers.product_seller',
                 'order_product_sellers.product_seller.product'
             ])
-            // ->withSum('order_product_sellers.product_seller', 'price')
-            ->get();
+            // ->select('*', DB::raw('sum(product_seller.price * order_product_sellers.count) as total'))
+            ->get()->first();
+
+        $sum = $openOrder->order_product_sellers->sum(function ($region) {
+            return $region->count * $region->product_seller->price;
+        });
 
         // dd($openOrder->product_seller->sum('price'));
 
         // $opss = OrderProductSeller::where('order_id', $openOrder->id)->with(['product_seller', 'product_seller.product'])->get();
 
         return view('order.cart', [
-            'cart' => $openOrder[0]
+            'cart' => $openOrder,
+            'sum' => $sum
         ]);
     }
 
@@ -57,5 +64,32 @@ class CartController extends Controller
         }
 
         return redirect()->route('orders');
+    }
+
+    public function delete(Request $request)
+    {
+        $ops = OrderProductSeller::with('product_seller')->find($request['id']);
+        // OrderProductSeller::where('id', $request['id'])->delete();
+        $ops->product_seller-> count += $ops->count;
+        $ops->product_seller->save();
+        $ops->delete();
+        return redirect()->route('cart');
+    }
+
+    public function update(Request $request)
+    {
+        $ops = OrderProductSeller::with('product_seller')->find($request->id);
+        if ($request->value == 1) { // increment
+            if ($ops->product_seller->count == 0)
+                return Response::json(['error' => 'not enough products in seller shop'], 405);
+            $ops->product_seller->count -= 1;
+            $ops->count += 1;
+        } else if ($ops->count > 1) {
+            $ops->count -= 1;
+            $ops->product_seller->count += 1;
+        }
+        $ops->save();
+        $ops->product_seller->save();
+        return $ops->count;
     }
 }

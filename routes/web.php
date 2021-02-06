@@ -54,6 +54,8 @@ Route::post('/product/add_cart', [ProductDetailsController::class, 'store'])->na
 
 Route::get('/user/cart', [CartController::class, 'index'])->name('cart')->middleware('customer');
 Route::post('/user/cart', [CartController::class, 'store'])->middleware('customer');
+Route::post('/user/cart/delete', [CartController::class, 'delete'])->name('cart.delete')->middleware('customer');
+Route::post('/user/cart/update', [CartController::class, 'update'])->name('cart.update');
 
 Route::get('/user/orders', [OrdersController::class, 'index'])->name('orders')->middleware('customer');
 

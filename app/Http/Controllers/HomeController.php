@@ -16,11 +16,13 @@ class HomeController extends Controller
     {
 
         $products = OrderProductSeller::join('product_seller', 'product_seller_id', '=', 'product_seller.id')
-            ->select('*', DB::raw('count(*) as total'))
-            ->groupBy(['order_product_sellers.id', 'product_seller.id'])
+        ->join('products', 'product_seller.product_id', '=', 'products.id')
+            ->select('*', DB::raw('count(*) as total'), DB::raw('min(product_seller.price) as min_price'))
+            ->groupBy(['order_product_sellers.id', 'product_seller.id', 'products.id'])
             ->orderBy('total', 'DESC')
             ->get();
 
+            // dd($products[3]->min_price);
         // find categories in depth 3 or 2
         $cats = Category::
         whereNotNull('parent_id')
