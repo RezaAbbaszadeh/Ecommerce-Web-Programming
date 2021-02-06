@@ -16,9 +16,9 @@ class SearchProductController extends Controller
             return "";
         }
         $search = explode(" ", $request->input('name'));
-        $result = Product::where('name', 'LIKE', '%' . $search[0] . '%')->with(['category'])->get();
+        $result = Product::where('name', 'ILIKE', '%' . $search[0] . '%')->with(['category'])->get();
         for ($i = 1; $i < count($search); $i++) {
-            $p = Product::where('name', 'LIKE', '%' . $search[$i] . '%')->with(['category'])->get();
+            $p = Product::where('name', 'ILIKE', '%' . $search[$i] . '%')->with(['category'])->get();
             $result = $result->merge($p);
         }
 

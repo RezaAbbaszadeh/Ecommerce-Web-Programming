@@ -58,7 +58,8 @@ class AddProductController extends Controller
                 'name' => 'required|max:255',
                 'count' => 'required|integer|min:0',
                 'price' => 'required|min:0|regex:/^\d*(\.\d{2})?/',
-                'img' =>  'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:ratio=1/1',
+                'img' =>  'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048|dimensions:ratio=1/1',
+                'details' => 'max:700',
                 'category' => 'required'
             ]);
 
@@ -68,10 +69,19 @@ class AddProductController extends Controller
             $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
             $this->uploadOne($image, $folder, 'public', $name);
 
-            $product = Product::create(['name' => $request->input('name'), 'img_url' => $filePath, 'category_id' => (int)$cat]);
+            $product = Product::create([
+                'name' => $request->input('name'),
+                'img_url' => $filePath,
+                'category_id' => (int)$cat,
+                'details' => $request->details
+            ]);
 
             $product->sellers()->attach(auth()->user()->profile->id, ['count' => $request->input('count'), 'price' => $request->input('price')]);
         } else {
+            $this->validate($request, [
+                'count' => 'required|integer|min:0',
+                'price' => 'required|min:0|regex:/^\d*(\.\d{2})?/'
+            ]);
             $product = Product::where('id', $ex)->get()->first();
 
             $product_seller = $product->product_seller->first(function ($item) use ($product) {
@@ -80,12 +90,11 @@ class AddProductController extends Controller
 
             if ($product_seller == null)
                 $product->sellers()->attach(auth()->user()->profile->id, ['count' => $request->input('count'), 'price' => $request->input('price')]);
-            else{
+            else {
                 $product_seller->count = $product_seller->count + $request->input('count');
                 $product_seller->price = $request->input('price');
                 $product_seller->save();
             }
-            
         }
 
         return redirect()->route('home.sellers');

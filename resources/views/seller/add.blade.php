@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="form-container col-11 col-md-8 col-lg-6 col-xl-4 mx-auto border rounded-lg p-4" style="margin-top: 100px">
+<div class="form-container col-11 col-md-8 col-lg-6 col-xl-4 mx-auto border rounded-lg p-4" style="margin-top: 60px">
 
     <h2 class=".font-weight-bolder">Add to your products:</h2>
     <div class="container text-right">
@@ -70,27 +70,40 @@
             @enderror
 
         </div>
+
         <div class="form-group">
-            <label for="count">How many/much of this product for sale:</label>
-            <input class="form-control @error('count') border-dander border-danger @enderror" type="number" name="count"
-                placeholder="Enter number" value="{{ old('count') }}">
-            @error('count')
+            <label for="details">Details:</label>
+            <textarea class="form-control @error('details') border-dander border-danger @enderror" maxlength="700"
+                rows="4" id="details" value="{{ old('details') }}" name="details"></textarea>
+            @error('details')
             <span class="error text-danger">{{ $message }}</span>
             @enderror
         </div>
 
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">$</span>
-                </div>
-                <input class="form-control @error('price') border-dander border-danger @enderror" type="number"
-                    step="0.01" name="price" placeholder="Enter number" value="{{ old('price') }}">
+
+        <div class="row">
+            <div class="form-group col-12 col-md-6">
+                <label for="count">How many/much:</label>
+                <input class="form-control @error('count') border-dander border-danger @enderror" type="number"
+                    name="count" placeholder="Enter number" value="{{ old('count') }}">
+                @error('count')
+                <span class="error text-danger">{{ $message }}</span>
+                @enderror
             </div>
-            @error('price')
-            <span class="error text-danger">{{ $message }}</span>
-            @enderror
+
+            <div class="form-group col-12 col-md-6">
+                <label for="price">Price:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">$</span>
+                    </div>
+                    <input class="form-control @error('price') border-dander border-danger @enderror" type="number"
+                        step="0.01" name="price" placeholder="Enter number" value="{{ old('price') }}">
+                </div>
+                @error('price')
+                <span class="error text-danger">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
 
         <div class="custom-file mt-4">
@@ -144,7 +157,7 @@
                                 cat3 = p.cat3.id;
                             searchDiv.innerHTML += `
                             <div class='p-2 row w-100 cursor-pointer border-bottom'
-                             onclick="selectItem('`+ p.name + "'," + p.id + "," + cat1 + "," + cat2 + "," + cat3 + `)">
+                             onclick="selectItem('`+ p.name + "'," + p.id + "," + cat1 + "," + cat2 + "," + cat3 + ",`" + p.details + "`" + `)">
                                 <div class='col-2' >
                                     <img class='p w-100 h-auto' src='` + p.img_url + `' />
                                 </div>
@@ -165,7 +178,7 @@
     });
 
 
-    function selectItem(name, id, cat1, cat2, cat3) {
+    function selectItem(name, id, cat1, cat2, cat3, details) {
         carsSelect.value = cat1;
         updateModels();
         if (cat2 != -1)
@@ -183,6 +196,10 @@
         var nameInput = document.getElementById("name-input");
         nameInput.value = name;
         nameInput.disabled = true;
+
+        var detailsInput = document.getElementById("details");
+        detailsInput.value = details;
+        detailsInput.disabled = true;
 
         var fileInput = document.getElementById("customFile");
         fileInput.disabled = true;

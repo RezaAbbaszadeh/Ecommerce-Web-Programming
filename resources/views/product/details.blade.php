@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-12 col-md-11 col-lg-10 mx-auto mt-5">
+<div class="col-12 col-md-11 col-lg-10 mx-auto my-5">
 
     <div class="d-flex justify-content-start">
         @php $x = $product->category @endphp
@@ -17,10 +17,10 @@
 
     <div class="bg-white border row">
         <div class="col-6 col-md-4 border-right">
-            <img class="p-5 w-100 h-auto" src="{{ $product->img_url }}" />
+            <img class=" w-100 h-auto" src="{{ $product->img_url }}" />
         </div>
         <div class="col-6 col-md-4 p-4">
-            <p>brand: Apple</p>
+            <h2>{{ $product->name }}</h2>
             <p class="mt-5">pick a color:
                 <span class="color d-inline-block ml-3" style="background-color: #ffeb3b;"></span>
                 <span>yellow</span>
@@ -39,7 +39,7 @@
             </select>
 
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 mb-4">
             <h1 id="d-price" class="text-danger mt-4 mx-auto text-center"></h1>
             <script>
                 $('#d-price').text('$' + {{ $ps[0]-> price }}); 
@@ -59,6 +59,11 @@
                 <input type="hidden" value="{{ $ps[0]->id }}" name="product_seller_id" id="product_seller_id_id">
             </form>
         </div>
+    </div>
+
+    <div class="multiline">
+        <h1>Details</h1>
+        {{ $product->details }}
     </div>
 
 </div>

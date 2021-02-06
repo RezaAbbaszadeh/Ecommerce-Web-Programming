@@ -20,7 +20,8 @@ class Product extends Model
     protected $fillable = [
         'name',
         'img_url',
-        'category_id'
+        'category_id',
+        'details'
     ];
 
     public function sellers()

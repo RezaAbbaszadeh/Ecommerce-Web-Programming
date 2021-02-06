@@ -21,19 +21,22 @@ class HomeController extends Controller
             ->orderBy('total', 'DESC')
             ->get();
 
-        // find categories in depth 3
-        $cats = Category::whereHas('parentCategory', function ($q) {
-            $q->whereNotNull('parent_id');
-        })->limit(5)->get();
+        // find categories in depth 3 or 2
+        $cats = Category::
+        whereNotNull('parent_id')
+        // whereHas('parentCategory', function ($q) {
+        //     $q->whereNotNull('parent_id');
+        // })
+        ->inRandomOrder()->limit(5)->get();
 
         foreach ($cats as $cat) {
-            $products = Product::where('category_id', $cat->id)
+            $CatProducts = Product::where('category_id', $cat->id)
                 ->join('product_seller', 'product_seller.product_id', '=', 'products.id')
                 ->select('*', DB::raw('min(price) as minPrice'))
                 ->groupBy(['products.id','product_seller.id'])
                 ->limit(5)
                 ->get();
-            $cat['products'] = $products;
+            $cat['products'] = $CatProducts;
         }
 
         return view('home.index', [
