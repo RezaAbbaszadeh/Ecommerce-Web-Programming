@@ -31,6 +31,9 @@ Route::get('/sellers', [SellerHomeController::class, 'index'])->name('home.selle
 
 Route::get('/category/{category:slug}', [CategoryController::class, 'index'])
     ->name('category');
+Route::get('/category/{category:slug}/{min}/{max}', [CategoryController::class, 'filter'])
+    ->name('category.filter');
+// Route::post('/category', [CategoryController::class, 'filter'])->name('category.filter');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);

@@ -1,4 +1,3 @@
-@props(['product' => $product, 'price'=>$price])
 
 <div class="product-box card m-1 p-3">
     <a href="{{ route('product', ['product'=>$product, 'name'=>$product->name]) }}">

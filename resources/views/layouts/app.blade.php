@@ -149,8 +149,16 @@
 
                     @endguest
                     @auth
+                    @if(auth()->user()->isCustomer)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.edit') }}">{{ auth()->user()->name }}</a>
+                        <a class="nav-link" href="{{ route('cart') }}"><i class="fa fa-shopping-cart mr-1"></i>Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('orders') }}"><i class="fa fa-shopping-bag mr-1"></i>My orders</a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.edit') }}"><i class="fa fa-user mr-1"></i>{{ auth()->user()->name }}</a>
                     </li>
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
