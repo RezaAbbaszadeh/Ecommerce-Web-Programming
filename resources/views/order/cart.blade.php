@@ -24,15 +24,20 @@
 
                 <p>number:</p>
                 <p class="border rounded p-2 d-inline-block">
+                    @if(!$cart->is_done)
                     <i class="fa fa-minus p-2 mr-3 cursor-pointer count-btn"
                         onclick="updateCount({{ $ops->id }},-1, {{ $ops->product_seller->price }})"></i>
+                    @endif
                     <span id="{{ $ops->id }}-count">{{ $ops->count }}</span>
+                    @if(!$cart->is_done)
                     <i class="fa fa-plus cursor-pointer p-2 ml-3 count-btn"
                         onclick="updateCount({{ $ops->id }},1, {{ $ops->product_seller->price }})"></i>
+                    @endif
                 </p>
                 <p id="number-error" class="error text-danger"></p>
 
                 <br>
+                @if(!$cart->is_done)
                 <form method="POST" action="{{ route('cart.delete', ['id'=>$ops->id]) }}">
                     @csrf
                     <button class="border border-danger rounded mt-1 d-inline-block px-3 py-2 delete-btn">
@@ -40,6 +45,7 @@
                         <span class="fa fa-trash text-danger p-1 " aria-hidden="true"></span>
                     </button>
                 </form>
+                @endif
             </div>
         </div>
         @endforeach
@@ -48,17 +54,22 @@
 
     <div class="col-12 col-lg-3 p-0">
         <div class="bg-white border rounded my-2 mx-5 mx-md-0 pb-3 shadow-sm">
-            <h3 class="text-center mt-4">Your cart price</h3>
+            <h3 class="text-center mt-4">
+                @if(!$cart->is_done) Your cart price @else Order price @endif
+            </h3>
             <h2 id="sum" class="text-center mt-4 text-danger">{{ $sum }}</h2>
+            @if(!$cart->is_done)
             <form class="col-12 mt-2 mt-lg-5" action="{{ route('cart', $cart) }}" method="post">
                 @csrf
                 <button class="btn w-100" type="submit">Submit Order</button>
             </form>
+            @endif
         </div>
 
     </div>
 </div>
 
+@if(!$cart->is_done)
 <script>
     var isRequestRunning = false;
     function updateCount(id, value, price) {
@@ -93,5 +104,6 @@
         }
     }
 </script>
+@endif
 
 @endsection

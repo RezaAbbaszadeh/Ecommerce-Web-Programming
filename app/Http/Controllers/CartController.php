@@ -12,17 +12,29 @@ use Illuminate\Support\Facades\Response;
 
 class CartController extends Controller
 {
-    public function index()
+    public function index($order_id)
     {
 
-        $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done' => false])
-            ->with([
-                'order_product_sellers',
-                'order_product_sellers.product_seller',
-                'order_product_sellers.product_seller.product'
-            ])
-            // ->select('*', DB::raw('sum(product_seller.price * order_product_sellers.count) as total'))
-            ->get()->first();
+        if ($order_id == -1) {
+            $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done' => false])
+                ->with([
+                    'order_product_sellers',
+                    'order_product_sellers.product_seller',
+                    'order_product_sellers.product_seller.product'
+                ])
+                // ->select('*', DB::raw('sum(product_seller.price * order_product_sellers.count) as total'))
+                ->get()->first();
+        }
+        else{
+            $openOrder = Order::
+                with([
+                    'order_product_sellers',
+                    'order_product_sellers.product_seller',
+                    'order_product_sellers.product_seller.product'
+                ])
+                // ->select('*', DB::raw('sum(product_seller.price * order_product_sellers.count) as total'))
+                ->find($order_id);
+        }
 
         $sum = $openOrder->order_product_sellers->sum(function ($region) {
             return $region->count * $region->product_seller->price;
@@ -70,7 +82,7 @@ class CartController extends Controller
     {
         $ops = OrderProductSeller::with('product_seller')->find($request['id']);
         // OrderProductSeller::where('id', $request['id'])->delete();
-        $ops->product_seller-> count += $ops->count;
+        $ops->product_seller->count += $ops->count;
         $ops->product_seller->save();
         $ops->delete();
         return redirect()->route('cart');

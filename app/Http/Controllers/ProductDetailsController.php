@@ -47,6 +47,6 @@ class ProductDetailsController extends Controller
             'count'=>$request->input('count')
         ]);
 
-        return redirect()->route('cart');
+        return redirect()->route('cart', -1);
     }
 }

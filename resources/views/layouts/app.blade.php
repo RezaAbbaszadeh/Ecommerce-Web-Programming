@@ -151,7 +151,7 @@
                     @auth
                     @if(auth()->user()->isCustomer)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cart') }}"><i class="fa fa-shopping-cart mr-1"></i>Cart</a>
+                        <a class="nav-link" href="{{ route('cart', -1) }}"><i class="fa fa-shopping-cart mr-1"></i>Cart</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('orders') }}"><i class="fa fa-shopping-bag mr-1"></i>My orders</a>

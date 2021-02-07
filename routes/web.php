@@ -31,8 +31,8 @@ Route::get('/sellers', [SellerHomeController::class, 'index'])->name('home.selle
 
 Route::get('/category/{category:slug}', [CategoryController::class, 'index'])
     ->name('category');
-Route::get('/category/{category:slug}/{min}/{max}', [CategoryController::class, 'filter'])
-    ->name('category.filter');
+// Route::get('/category/{category:slug}/{min}/{max}', [CategoryController::class, 'filter'])
+//     ->name('category.filter');
 // Route::post('/category', [CategoryController::class, 'filter'])->name('category.filter');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
@@ -53,9 +53,9 @@ Route::get('/sellers/add', [AddProductController::class, 'index'])->name('seller
 Route::post('/sellers/add', [AddProductController::class, 'store']);
 
 Route::get('/product/{product:id}/{name}', [ProductDetailsController::class, 'index'])->name('product');
-Route::post('/product/add_cart', [ProductDetailsController::class, 'store'])->name('product.store')->middleware('customer');;
+Route::post('/product/add_cart', [ProductDetailsController::class, 'store'])->name('product.store')->middleware('customer');
 
-Route::get('/user/cart', [CartController::class, 'index'])->name('cart')->middleware('customer');
+Route::get('/user/cart/{id}', [CartController::class, 'index'])->name('cart')->middleware('customer');
 Route::post('/user/cart', [CartController::class, 'store'])->middleware('customer');
 Route::post('/user/cart/delete', [CartController::class, 'delete'])->name('cart.delete')->middleware('customer');
 Route::post('/user/cart/update', [CartController::class, 'update'])->name('cart.update');
