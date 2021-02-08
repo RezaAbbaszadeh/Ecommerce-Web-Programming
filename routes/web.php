@@ -36,14 +36,14 @@ Route::get('/category/{category:slug}', [CategoryController::class, 'index'])
 //     ->name('category.filter');
 // Route::post('/category', [CategoryController::class, 'filter'])->name('category.filter');
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'index'])->name('register')->middleware(['guest', 'throttle:50,1']);;
+Route::post('/register', [RegisterController::class, 'store'])->middleware(['guest', 'throttle:6,1']);;
 
-Route::get('/register/seller', [RegisterController::class, 'indexSeller'])->name('register.seller');
-Route::post('/register/seller', [RegisterController::class, 'storeSeller']);
+Route::get('/register/seller', [RegisterController::class, 'indexSeller'])->name('register.seller')->middleware(['guest', 'throttle:50,1']);
+Route::post('/register/seller', [RegisterController::class, 'storeSeller'])->middleware(['guest', 'throttle:6,1']);;
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'store']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware(['guest', 'throttle:50,1']);
+Route::post('/login', [LoginController::class, 'store'])->middleware(['guest', 'throttle:6,1']);
 
 Route::get('/profile/edit', [EditProfileController::class, 'index'])->name('profile.edit')->middleware('auth', 'throttle:10,1');
 Route::post('/profile/edit', [EditProfileController::class, 'store'])->middleware('auth', 'throttle:10,1');

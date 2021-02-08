@@ -32,68 +32,80 @@
 </script>
 <div class="row col-12 wrapper justify-content-center justify-content-xl-start p-0 m-0 mb-5">
 
-    <div class="col-12 col-md-10 col-lg-7 col-xl-3 mt-3">
-        <h2 class="col-12 mb-3 mx-2">Filters</h2>
-        <div class="card bg-white mx-3">
-            <div class="card-header p-0 bg-white" id="headingOne">
-                <h2 class="mb-0">
-                    <button type="button" class="btn btn-link text-decoration-none w-100 text-left"
-                        data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-plus"></i> Price</button>
-                </h2>
-            </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
-                <div class="card-body w-100">
-                    <input type="range" class="w-100" />
-                </div>
 
+    <div class="col-12 col-md-10 col-lg-7 col-xl-3 mt-3">
+        <form action="{{ route('category', $category) }}" method="get">
+            <div class="row mx-3">
+                <h2 class="col-6 align">Filters</h2>
+                <button type="submit" class="col-6 btn h3 text-danger bg-light border border-dander p-1"
+                    style="font-size: 1.5rem;">Submit</button>
             </div>
-        </div>
-        <div class="card bg-white mx-3 mt-3">
-            <div class="card-header p-0 bg-white" id="headingTwo">
-                <h2 class="mb-0">
-                    <button type="button" class="btn btn-link text-decoration-none w-100 text-left"
-                        data-toggle="collapse" data-target="#collapseTwo"><i class="fa fa-plus"></i> Search</button>
-                </h2>
+            <div class="card bg-white mx-3">
+                <div class="card-header p-0 bg-white" id="headingOne">
+                    <h2 class="mb-0">
+                        <button type="button" class="btn btn-link text-decoration-none w-100 text-left"
+                             id="price_btn" data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-plus"></i> Price {{ $min_price }}</button>
+                    </h2>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+                    <div class="card-body w-100">
+                        <input type="range" id="min_price" name="min_price" class="w-100" min="1" max="1000" value="{{ $min_price }}" />
+                    </div>
+                </div>
+                <script>
+                    $('#min_price').on('input', function () {
+                        $('#price_btn').html("<i class='fa fa-plus'></i> Price  " + $('#min_price').val())
+                    });
+                </script>
             </div>
-            <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne">
-                <div class="card-body w-100">
-                    <div class="input-group mr-sm-2 w-100">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-light" id="basic-addon2">
-                                <i class="fa fa-search"></i></span>
+            <div class="card bg-white mx-3 mt-3">
+                <div class="card-header p-0 bg-white" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button type="button" class="btn btn-link text-decoration-none w-100 text-left"
+                            data-toggle="collapse" data-target="#collapseTwo"><i class="fa fa-plus"></i> Search</button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne">
+                    <div class="card-body w-100">
+                        <div class="input-group mr-sm-2 w-100">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-light" id="basic-addon2">
+                                    <i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" id="search-temp" class="form-control p-2 bg-light h-100"
+                                placeholder="Search in results" name="search_cat" aria-label="Username"
+                                aria-describedby="basic-addon1" autocomplete="off" value="{{ $search_cat }}">
                         </div>
-                        <input type="text" id="search-temp" class="form-control p-2 bg-light h-100"
-                            placeholder="Search in results" aria-label="Username" aria-describedby="basic-addon1"
-                            autocomplete="off">
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card bg-white mx-3 mt-3">
-            <div class="card-header p-0 bg-white" id="headingThree">
-                <h2 class="mb-0">
-                    <button type="button" class="btn btn-link text-decoration-none w-100 text-left"
-                        data-toggle="collapse" data-target="#collapseThree"><i class="fa fa-plus"></i> Brands</button>
-                </h2>
-            </div>
-            <div id="collapseThree" class="collapse show" aria-labelledby="headingThree">
-                <div class="card-body w-100">
-                    <input type="checkbox" class="form-check-input ml-1">
-                    <label class="form-check-label ml-4">Samsung</label><br>
-                    <input type="checkbox" class="form-check-input ml-1">
-                    <label class="form-check-label ml-4">Apple</label><br>
-                    <input type="checkbox" class="form-check-input ml-1">
-                    <label class="form-check-label ml-4">Huawei</label><br>
-                    <input type="checkbox" class="form-check-input ml-1">
-                    <label class="form-check-label ml-4">Xiaomi</label><br>
-                    <input type="checkbox" class="form-check-input ml-1">
-                    <label class="form-check-label ml-4">Nokia</label><br>
-                    <input type="checkbox" class="form-check-input ml-1">
-                    <label class="form-check-label ml-4">Motorola</label><br>
+            <div class="card bg-white mx-3 mt-3">
+                <div class="card-header p-0 bg-white" id="headingThree">
+                    <h2 class="mb-0">
+                        <button type="button" class="btn btn-link text-decoration-none w-100 text-left"
+                            data-toggle="collapse" data-target="#collapseThree"><i class="fa fa-plus"></i>
+                            Brands</button>
+                    </h2>
                 </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree">
+                    <div class="card-body w-100">
+                        <input type="checkbox" class="form-check-input ml-1">
+                        <label class="form-check-label ml-4">Samsung</label><br>
+                        <input type="checkbox" class="form-check-input ml-1">
+                        <label class="form-check-label ml-4">Apple</label><br>
+                        <input type="checkbox" class="form-check-input ml-1">
+                        <label class="form-check-label ml-4">Huawei</label><br>
+                        <input type="checkbox" class="form-check-input ml-1">
+                        <label class="form-check-label ml-4">Xiaomi</label><br>
+                        <input type="checkbox" class="form-check-input ml-1">
+                        <label class="form-check-label ml-4">Nokia</label><br>
+                        <input type="checkbox" class="form-check-input ml-1">
+                        <label class="form-check-label ml-4">Motorola</label><br>
+                    </div>
 
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div id="producs_container" class="row col-10 col-md-10 col-xl-8 p-0 mt-3">
         <h2 class="col-12 mb-3">Products in category of {{ $category->name }}</h2>

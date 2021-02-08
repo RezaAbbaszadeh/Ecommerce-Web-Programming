@@ -8,11 +8,6 @@ use Illuminate\Validation\Rule;
 class LoginController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware(['guest', 'throttle:50,1']);
-    }
-
     public function index()
     {
         return view('auth.login', [

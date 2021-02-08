@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="form-container col-11 col-sm-10 col-md-8 col-lg-6 col-xl-4 mx-auto border rounded-lg p-4" style="margin-top: 100px">
+<div class="form-container col-11 col-sm-10 col-md-8 col-lg-6 col-xl-4 mx-auto border rounded-lg p-4" style="margin-top: 70px">
     <h2 class=".font-weight-bolder">Create Account</h2>
     <form method="post" action="{{ route('register') }}">
         @csrf
