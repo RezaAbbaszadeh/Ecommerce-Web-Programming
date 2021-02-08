@@ -9,7 +9,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['guest']);
+        $this->middleware(['guest','throttle:5,1']);
     }
 
     public function index()
@@ -19,6 +19,12 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
+
+        // if ($this->hasTooManyLoginAttempts($request)) {
+        //     $this->fireLockoutEvent($request);
+        //     return $this->sendLockoutResponse($request);
+        // }
+        // $this->incrementLoginAttempts($request);
         $this->validate($request,[
             'email' => 'required|email',
             'password' => 'required'
@@ -30,7 +36,7 @@ class LoginController extends Controller
         else{
 
         }
-
+        // $this->clearLoginAttempts($request);
         if(auth()->user()->isCustomer)
             return redirect()->route('home');
         else

@@ -18,7 +18,7 @@
     <a class="h5 text-secondary mx-2 mt-5" href="{{ route('category', $cat) }}">{{ $cat->name }}
         <i style="font-size: 0.9rem;" class="fa fa-chevron-right"></i>
     </a>
-    <div class="w-100 bg-danger mb-2" style="height: 1px;"></div>
+    <div class="w-100 bg-secondary mb-2" style="height: 1px;"></div>
     <div class="row mx-2">
         @foreach($cat->products as $product)
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-0">

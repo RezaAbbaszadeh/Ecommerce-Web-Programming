@@ -21,7 +21,6 @@
                 <p>price: {{ $ops->product_seller->price }}</p>
             </div>
             <div class="col-12 col-md-4 col-lg-4 col-xl-4 p-4">
-
                 <p>number:</p>
                 <p class="border rounded p-2 d-inline-block">
                     @if(!$cart->is_done)
@@ -57,8 +56,8 @@
             <h3 class="text-center mt-4">
                 @if(!$cart->is_done) Your cart price @else Order price @endif
             </h3>
-            <h2 id="sum" class="text-center mt-4 text-danger">{{ $sum }}</h2>
-            @if(!$cart->is_done)
+            <h2 id="sum" class="text-center mt-4 text-danger">${{ $sum }}</h2>
+            @if(!$cart->is_done and $sum != 0)
             <form class="col-12 mt-2 mt-lg-5" action="{{ route('cart', $cart) }}" method="post">
                 @csrf
                 <button class="btn w-100" type="submit">Submit Order</button>
@@ -90,7 +89,7 @@
                     $('#number-error').html("");
                     $(".count-btn").css('color', '#000000');
                     $("#sum").text(
-                        parseInt($("#sum").text()) + price * value
+                        '$' + (parseInt($("#sum").text().substring(1)) + price * value)
                     );
                 },
                 error: function (errors) {

@@ -7,13 +7,7 @@ use App\Models\ProductSeller;
 use Illuminate\Http\Request;
 
 class SellerHomeController extends Controller
-{
-
-    public function __construct()
-    {
-        $this->middleware(['seller']);
-    }
-    
+{    
     public function index()
     {
 

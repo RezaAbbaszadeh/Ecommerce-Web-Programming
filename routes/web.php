@@ -27,10 +27,11 @@ use App\Http\Controllers\SellerHomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/sellers', [SellerHomeController::class, 'index'])->name('home.sellers')->middleware('seller');
+Route::get('/sellers', [SellerHomeController::class, 'index'])->name('home.sellers')
+    ->middleware('seller', 'throttle:5,1');
 
 Route::get('/category/{category:slug}', [CategoryController::class, 'index'])
-    ->name('category');
+    ->name('category')->middleware('throttle:15,1');
 // Route::get('/category/{category:slug}/{min}/{max}', [CategoryController::class, 'filter'])
 //     ->name('category.filter');
 // Route::post('/category', [CategoryController::class, 'filter'])->name('category.filter');
@@ -44,24 +45,24 @@ Route::post('/register/seller', [RegisterController::class, 'storeSeller']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
-Route::get('/profile/edit', [EditProfileController::class, 'index'])->name('profile.edit');
-Route::post('/profile/edit', [EditProfileController::class, 'store']);
+Route::get('/profile/edit', [EditProfileController::class, 'index'])->name('profile.edit')->middleware('auth', 'throttle:10,1');
+Route::post('/profile/edit', [EditProfileController::class, 'store'])->middleware('auth', 'throttle:10,1');
 
-Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+Route::post('/logout', [LogoutController::class, 'store'])->name('logout')->middleware('auth', 'throttle:5,1');
 
-Route::get('/sellers/add', [AddProductController::class, 'index'])->name('seller.add');
-Route::post('/sellers/add', [AddProductController::class, 'store']);
+Route::get('/sellers/add', [AddProductController::class, 'index'])->name('seller.add')->middleware('seller', 'throttle:20,1');
+Route::post('/sellers/add', [AddProductController::class, 'store'])->middleware('seller', 'throttle:20,1');
 
-Route::get('/product/{product:id}/{name}', [ProductDetailsController::class, 'index'])->name('product');
-Route::post('/product/add_cart', [ProductDetailsController::class, 'store'])->name('product.store')->middleware('customer');
+Route::get('/product/{product:id}/{name}', [ProductDetailsController::class, 'index'])->name('product','throttle:30,1');
+Route::post('/product/add_cart', [ProductDetailsController::class, 'store'])->name('product.store')->middleware('customer','throttle:20,1');
 
-Route::get('/user/cart/{id}', [CartController::class, 'index'])->name('cart')->middleware('customer');
-Route::post('/user/cart', [CartController::class, 'store'])->middleware('customer');
-Route::post('/user/cart/delete', [CartController::class, 'delete'])->name('cart.delete')->middleware('customer');
-Route::post('/user/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::get('/user/cart/{id}', [CartController::class, 'index'])->name('cart')->middleware('customer','throttle:20,1');
+Route::post('/user/cart', [CartController::class, 'store'])->middleware('customer','throttle:20,1');
+Route::post('/user/cart/delete', [CartController::class, 'delete'])->name('cart.delete')->middleware('customer','throttle:20,1');
+Route::post('/user/cart/update', [CartController::class, 'update'])->name('cart.update')->middleware('customer','throttle:40,1');
 
-Route::get('/customer/orders', [OrdersController::class, 'index'])->name('orders')->middleware('customer');
-Route::get('/seller/orders', [OrdersController::class, 'indexSellers'])->name('orders.sellers')->middleware('seller');
+Route::get('/customer/orders', [OrdersController::class, 'index'])->name('orders')->middleware('customer','throttle:20,1');
+Route::get('/seller/orders', [OrdersController::class, 'indexSellers'])->name('orders.sellers')->middleware('seller','throttle:20,1');
 
-Route::post('/products/search', [SearchProductController::class, 'searchProduct'])->name('products.search')->middleware('seller');
-Route::post('/search', [SearchProductController::class, 'search'])->name('search');
+Route::post('/products/search', [SearchProductController::class, 'searchProduct'])->name('products.search')->middleware('seller','throttle:60,1');
+Route::post('/search', [SearchProductController::class, 'search'])->name('search')->middleware('throttle:60,1');

@@ -16,36 +16,47 @@ class ProductDetailsController extends Controller
         $p = ProductSeller::where('product_id', $product->id)->with('seller')->get();
 
         // dd($p[0]->seller->user->name);
-        return view('product.details',[
-            'product'=>$product,
-            'ps'=> $p
+        return view('product.details', [
+            'product' => $product,
+            'ps' => $p
         ]);
     }
 
 
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'count' => 'required|integer|min:1',
         ]);
 
-        $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done'=> false])->get();
+        $openOrder = Order::where(['customer_id' => auth()->user()->profile->id, 'is_done' => false])->get();
         // dd($openOrder);
-        if(!$openOrder->count()){
+        if (!$openOrder->count()) {
             $openOrder = Order::create([
-                'customer_id'=>auth()->user()->profile->id,
+                'customer_id' => auth()->user()->profile->id,
             ]);
             //$openOrder->save();
-        }
-        else{
+        } else {
             $openOrder = $openOrder[0];
         }
 
-        $ops = OrderProductSeller::create([
-            'order_id'=>$openOrder->id,
-            'product_seller_id'=>$request->input('product_seller_id'),
-            'count'=>$request->input('count')
-        ]);
+
+        $ops = OrderProductSeller::where([
+            'order_id' => $openOrder->id,
+            'product_seller_id' => $request->input('product_seller_id')
+        ])->get()->first();
+
+        if ($ops == null) {
+            $ops = OrderProductSeller::create([
+                'order_id' => $openOrder->id,
+                'product_seller_id' => $request->input('product_seller_id'),
+                'count' => $request->input('count')
+            ]);
+        }
+        else{
+            $ops->count += $request->input('count');
+            $ops->save();
+        }
 
         return redirect()->route('cart', -1);
     }

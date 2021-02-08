@@ -40,11 +40,10 @@
 
         </div>
         <div class="col-12 col-sm-6 col-md-4 mb-4">
-            <h1 id="d-price" class="text-danger mt-4 mx-auto text-center"></h1>
-            <script>
-                $('#d-price').text('$' + {{ $ps[0]-> price }}); 
-            </script>
+            <h1 id="d-price" class="text-danger mt-4 mx-auto text-center">${{ $ps[0]->price }}</h1>
+            
 
+            @if(auth()->user()->isCustomer)
             <form action="{{ route('product.store') }}" method="post" class="mt-5 align-bottom">
                 @csrf
                 <div class="form-group">
@@ -58,6 +57,7 @@
                 <button class="btn w-100" type="submit">Add to cart</button>
                 <input type="hidden" value="{{ $ps[0]->id }}" name="product_seller_id" id="product_seller_id_id">
             </form>
+            @endif
         </div>
     </div>
 

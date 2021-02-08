@@ -85,7 +85,7 @@ class CartController extends Controller
         $ops->product_seller->count += $ops->count;
         $ops->product_seller->save();
         $ops->delete();
-        return redirect()->route('cart');
+        return redirect()->route('cart',['id'=>-1]);
     }
 
     public function update(Request $request)
