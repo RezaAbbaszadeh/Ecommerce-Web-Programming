@@ -66,12 +66,12 @@ nav {
     outline: 0 none;
 }
 
-.product-box {
+.shadow-animated {
     background-color: white;
     transition: box-shadow 0.3s ease-in-out
 }
 
-.product-box:hover {
+.shadow-animated:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
     transition: box-shadow 0.3s ease-in-out
 }

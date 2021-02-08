@@ -17,14 +17,14 @@ class HomeController extends Controller
         $ps = Product::with(['product_seller' => function ($query) {
             $query->withCount('order_product_sellers');
         }])->get();
-        
+
         foreach ($ps as $p) {
             $p->sum = $p->product_seller->sum(function ($region) {
                 return $region->order_product_sellers_count;
             });
         }
 
-        $populars = $ps->sortByDesc('sum')->take(5);
+        $populars = $ps->sortByDesc('sum')->take(6);
 
         // dd($products[3]->min_price);
         // find categories in depth 3 or 2

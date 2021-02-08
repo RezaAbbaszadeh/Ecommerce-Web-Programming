@@ -7,7 +7,7 @@
     @foreach($productSellers as $productSeller)
 
     <div class="col-6 col-md-4 col-xl-3">
-        <div class="w-100 bg-light row mt-3 p-4 bg-white border rounded product-box mx-2">
+        <div class="w-100 bg-light row mt-3 p-4 bg-white border rounded shadow-animated mx-2">
             <a class="text-decoration-none" href="{{ route('product', [$productSeller->product, $productSeller->product->name]) }}">
                 <img class="w-100 h-auto" src="{{ $productSeller->product->img_url }}" />
                 <p class="mt-3">{{ $productSeller->product->name }}</p>
