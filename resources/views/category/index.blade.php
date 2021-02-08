@@ -44,7 +44,7 @@
                 <div class="card-header p-0 bg-white" id="headingOne">
                     <h2 class="mb-0">
                         <button type="button" class="btn btn-link text-decoration-none w-100 text-left"
-                             id="price_btn" data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-plus"></i> Price {{ $min_price }}</button>
+                             id="price_btn" data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-plus"></i> Minimum price {{ $min_price }}</button>
                     </h2>
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
@@ -54,7 +54,7 @@
                 </div>
                 <script>
                     $('#min_price').on('input', function () {
-                        $('#price_btn').html("<i class='fa fa-plus'></i> Price  " + $('#min_price').val())
+                        $('#price_btn').html("<i class='fa fa-plus'></i> Minimum price " + $('#min_price').val())
                     });
                 </script>
             </div>

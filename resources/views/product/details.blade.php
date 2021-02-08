@@ -43,6 +43,7 @@
             <h1 id="d-price" class="text-danger mt-4 mx-auto text-center">${{ $ps[0]->price }}</h1>
             
 
+            @auth
             @if(auth()->user()->isCustomer)
             <form action="{{ route('product.store') }}" method="post" class="mt-5 align-bottom">
                 @csrf
@@ -58,6 +59,7 @@
                 <input type="hidden" value="{{ $ps[0]->id }}" name="product_seller_id" id="product_seller_id_id">
             </form>
             @endif
+            @endauth
         </div>
     </div>
 

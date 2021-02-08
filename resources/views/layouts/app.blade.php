@@ -19,7 +19,16 @@
     <header class="container-fluid bg-white">
         <div class="row mt-0 pt-3 wrapper justify-content-between">
             <div class="col-3 col-md-3 col-xl-2">
+                @auth
+                @if(auth()->user()->isSeller)
+                <a id="logo" class="mt-0 h2 pl-2" href="{{ route('home.sellers') }}">meShop</a>
+                @else
                 <a id="logo" class="mt-0 h2 pl-2" href="{{ route('home') }}">meShop</a>
+                @endif
+                @endauth
+                @guest
+                <a id="logo" class="mt-0 h2 pl-2" href="{{ route('home') }}">meShop</a>
+                @endguest
             </div>
             <div id="search-form" class="col-9 col-md-6 col-xl-4">
                 <form class="form-inline w-100" action="{{ route('products.search') }}" method="POST">
@@ -41,7 +50,7 @@
                         </div>
                     </div>
                     <div id="search-res" class="w-100 row" style="max-height: 280px; overflow-y: scroll;">
-                        
+
                     </div>
                 </div>
             </div>
@@ -49,7 +58,7 @@
                 $(document).ready(function () {
                     $("#search-form").focusout(function () {
                         setTimeout(function () {
-                        $('#search-res-container').hide();
+                            $('#search-res-container').hide();
                         }, 150);
                     });
                     $("#search-form").focusin(function () {
@@ -76,7 +85,7 @@
                                     result.cats.forEach(p => {
                                         $("#search-res").append(`
                                         <a class='p-2 list_row row w-100 border-bottom text-decoration-none text-dark'
-                                        href='`+ result.base_url +'/category/'+ p.slug +`'>
+                                        href='`+ result.base_url + '/category/' + p.slug + `'>
                                             <span class='col-10'>Category "` + p.name + `"</span>
                                         </a>`
                                         );
@@ -85,7 +94,7 @@
                                     result.products.forEach(p => {
                                         $("#search-res").append(`
                                             <a class='p-2 list_row row w-100 border-bottom text-decoration-none text-dark'
-                                            href='`+ result.base_url +'/product/'+ p.id+'/'+p.name +`'>
+                                            href='`+ result.base_url + '/product/' + p.id + '/' + p.name + `'>
                                                 <div class='col-2' >
                                                     <img class='p w-100 h-auto' src='` + p.img_url + `' />
                                                 </div>
@@ -151,14 +160,18 @@
                     @auth
                     @if(auth()->user()->isCustomer)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cart', -1) }}"><i class="fa fa-shopping-cart mr-1"></i>Cart</a>
+                        <a class="nav-link" href="{{ route('cart', -1) }}"><i
+                                class="fa fa-shopping-cart mr-1"></i>Cart</a>
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="@if(auth()->user()->isCustomer) {{ route('orders') }} @else {{ route('orders.sellers') }} @endif"><i class="fa fa-shopping-bag mr-1"></i>My orders</a>
+                        <a class="nav-link"
+                            href="@if(auth()->user()->isCustomer) {{ route('orders') }} @else {{ route('orders.sellers') }} @endif"><i
+                                class="fa fa-shopping-bag mr-1"></i>My orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.edit') }}"><i class="fa fa-user mr-1"></i>{{ auth()->user()->name }}</a>
+                        <a class="nav-link" href="{{ route('profile.edit') }}"><i class="fa fa-user mr-1"></i>{{
+                            auth()->user()->name }}</a>
                     </li>
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
