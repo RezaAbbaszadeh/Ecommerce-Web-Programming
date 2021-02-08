@@ -56,6 +56,16 @@
             @enderror
         </div>
 
+        <div class="form-group row mx-0">
+            <label for="captcha" class="col-auto font-italic font-weight-bold bg-dark text-white p-2 rounded mt-2">{{ $captcha }}</label>
+            <input class="col ml-3 my-auto form-control @error('captcha') border-dander border-danger @enderror"
+             type="text" maxlength="11" name="captcha"
+                placeholder="Enter captcha" value="{{ old('captcha') }}" required>
+            @error('captcha')
+            <span class="col-12 pl-0 error text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
         <div class="row">
             <div class="form-group col-12 col-md-6">
                 <label for="password">Password:</label>
