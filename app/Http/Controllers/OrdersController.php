@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\ProductSeller;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -26,8 +28,36 @@ class OrdersController extends Controller
 
         // dd($orders);
 
-        return view('order.list',[
-            'orders'=>$orders
+        return view('order.list', [
+            'orders' => $orders
+        ]);
+    }
+
+    public function indexSellers()
+    {
+
+        $productSellers = ProductSeller::where('seller_id', auth()->user()->profile->id)
+            ->with(['order_product_sellers.order', 'order_product_sellers', 'product'])
+            // ->whereHas('order_product_sellers.order', function ($order) {
+            //     return $order->where('is_done', true);
+            // })
+            ->get();
+
+        foreach ($productSellers as $productSeller) {
+            $productSeller->sum = $productSeller->order_product_sellers->sum(function ($region) {
+                if ($region->order->is_done)
+                    return $region->count;
+                else
+                    return 0;
+            });
+        }
+
+        $productSellers = $productSellers->filter(function ($item) {
+            return $item->sum > 0;
+        })->values();
+
+        return view('order.list_seller', [
+            'productSellers' => $productSellers
         ]);
     }
 }

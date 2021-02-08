@@ -14,13 +14,17 @@ class HomeController extends Controller
 
     public function index()
     {
+        $ps = Product::with(['product_seller' => function ($query) {
+            $query->withCount('order_product_sellers');
+        }])->get();
+        
+        foreach ($ps as $p) {
+            $p->sum = $p->product_seller->sum(function ($region) {
+                return $region->order_product_sellers_count;
+            });
+        }
 
-        $products = OrderProductSeller::join('product_seller', 'product_seller_id', '=', 'product_seller.id')
-            ->join('products', 'product_seller.product_id', '=', 'products.id')
-            ->select('*', DB::raw('count(*) as total'), DB::raw('min(product_seller.price) as min_price'))
-            ->groupBy(['order_product_sellers.id', 'product_seller.id', 'products.id'])
-            ->orderBy('total', 'DESC')
-            ->get();
+        $populars = $ps->sortByDesc('sum')->take(5);
 
         // dd($products[3]->min_price);
         // find categories in depth 3 or 2
@@ -41,7 +45,7 @@ class HomeController extends Controller
         }
 
         return view('home.index', [
-            'popular' => $products,
+            'popular' => $populars,
             'cats' => $cats
         ]);
     }

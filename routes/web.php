@@ -60,7 +60,8 @@ Route::post('/user/cart', [CartController::class, 'store'])->middleware('custome
 Route::post('/user/cart/delete', [CartController::class, 'delete'])->name('cart.delete')->middleware('customer');
 Route::post('/user/cart/update', [CartController::class, 'update'])->name('cart.update');
 
-Route::get('/user/orders', [OrdersController::class, 'index'])->name('orders')->middleware('customer');
+Route::get('/customer/orders', [OrdersController::class, 'index'])->name('orders')->middleware('customer');
+Route::get('/seller/orders', [OrdersController::class, 'indexSellers'])->name('orders.sellers')->middleware('seller');
 
 Route::post('/products/search', [SearchProductController::class, 'searchProduct'])->name('products.search')->middleware('seller');
 Route::post('/search', [SearchProductController::class, 'search'])->name('search');
