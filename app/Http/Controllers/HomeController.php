@@ -35,13 +35,27 @@ class HomeController extends Controller
             ->inRandomOrder()->limit(5)->get();
 
         foreach ($cats as $cat) {
-            $CatProducts = Product::where('category_id', $cat->id)
-                ->join('product_seller', 'product_seller.product_id', '=', 'products.id')
-                ->select('*', DB::raw('min(price) as minPrice'))
-                ->groupBy(['products.id', 'product_seller.id'])
-                ->limit(5)
-                ->get();
-            $cat['products'] = $CatProducts;
+            // $CatProducts = Product::where('category_id', $cat->id)
+            //     ->join('product_seller', 'product_seller.product_id', '=', 'products.id')
+            //     ->select('*', DB::raw('min(price) as minPrice'))
+            //     ->groupBy(['products.id', 'product_seller.id'])
+            //     ->limit(5)
+            //     ->get();
+
+            $ps = Product::where('category_id', $cat->id)
+                ->with(['product_seller' => function ($query) {
+                    $query->withCount('order_product_sellers');
+                }])->get();
+
+            foreach ($ps as $p) {
+                $p->sum = $p->product_seller->sum(function ($region) {
+                    return $region->order_product_sellers_count;
+                });
+            }
+
+            $psSorted = $ps->sortByDesc('sum')->take(6);
+
+            $cat['products'] = $psSorted;
         }
 
         return view('home.index', [

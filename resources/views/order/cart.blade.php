@@ -58,7 +58,7 @@
             </h3>
             <h2 id="sum" class="text-center mt-4 text-danger">${{ $sum }}</h2>
             @if(!$cart->is_done and $sum != 0)
-            <form class="col-12 mt-2 mt-lg-5" action="{{ route('cart', $cart) }}" method="post">
+            <form class="col-12 mt-2 mt-lg-5" action="{{ route('cart.store', $cart) }}" method="post">
                 @csrf
                 <button class="btn w-100" type="submit">Submit Order</button>
             </form>

@@ -16,7 +16,9 @@
     </div>
     @endforeach
 
-    {{ $productSellers->links() }}
+    <div id="pagination" class="col-12 d-flex justify-content-center my-5">
+        {{ $productSellers->links() }}
+    </div>
 </div>
 
 @endsection

@@ -28,8 +28,14 @@ class CategoryController extends Controller
         $ids = array($category->id);
         $this->addtoArray($ids, $category);
 
-        $products = Product::whereIn('category_id', $ids)
-            ->join('product_seller', 'product_seller.product_id', '=', 'products.id')
+
+        // $ps = Product::where('category_id', $cat->id)
+        //         ->with(['product_seller' => function ($query) {
+        //             $query->withCount('order_product_sellers');
+        //         }])->get();
+
+        $products = Product::whereIn('category_id', $ids)->with('product_seller')
+            // ->join('product_seller', 'product_seller.product_id', '=', 'products.id')
             ->whereHas('product_seller', function ($q) use ($min_price) {
                 $q->where('price', '>', $min_price);
             })

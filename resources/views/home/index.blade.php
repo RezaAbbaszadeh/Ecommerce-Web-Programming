@@ -15,6 +15,7 @@
 
 
     @foreach($cats as $cat)
+    @if(count($cat->products) > 0)
     <a class="h5 text-secondary mx-2 mt-5" href="{{ route('category', $cat) }}">{{ $cat->name }}
         <i style="font-size: 0.9rem;" class="fa fa-chevron-right"></i>
     </a>
@@ -26,6 +27,7 @@
         </div>
         @endforeach
     </div>
+    @endif
     @endforeach
 
 </div>

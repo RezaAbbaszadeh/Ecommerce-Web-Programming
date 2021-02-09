@@ -49,7 +49,7 @@
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
                     <div class="card-body w-100">
-                        <input type="range" id="min_price" name="min_price" class="w-100" min="1" max="1000" value="{{ $min_price }}" />
+                        <input type="range" id="min_price" name="min_price" class="w-100" min="0" max="1000" value="{{ $min_price }}" />
                     </div>
                 </div>
                 <script>

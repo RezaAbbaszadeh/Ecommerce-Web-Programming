@@ -24,6 +24,12 @@ class CartController extends Controller
                 ])
                 // ->select('*', DB::raw('sum(product_seller.price * order_product_sellers.count) as total'))
                 ->get()->first();
+
+                if($openOrder==null){
+                    $openOrder = Order::create([
+                        'customer_id' => auth()->user()->profile->id
+                    ]);
+                }
         }
         else{
             $openOrder = Order::

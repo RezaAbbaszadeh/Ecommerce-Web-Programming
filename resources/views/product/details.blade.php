@@ -29,7 +29,8 @@
             <p class="mt-5">pick seller:</p>
             <select class="form-control" name="seller" id="seller" onchange="{ 
                     var price = $('#seller').find(':selected').val();
-                    $('#d-price').val(price.substring(price.indexOf('/') + 1)); 
+                    $('#d-price').html('$' + price.substring(price.indexOf('/') + 1));
+                    // alert(price); 
                     $('#product_seller_id_id').val(price.substring(0,price.indexOf('/')));
                     }">
                 @foreach($ps as $p)
