@@ -1,5 +1,6 @@
 ## About
 This is an online shopping website built with laravel.
+[screenshots](https://github.com/RezaAbbaszadeh/Ecommerce-Web-Programming/tree/main/screenshots)
 
 ## Features
 - CRUD operations
